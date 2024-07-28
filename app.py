@@ -80,10 +80,5 @@ def proxy_stream(stream_id):
 def list_streams():
     return jsonify({k: v[0] for k, v in STREAMS.items()})
 
-@click.command()
-@click.option('--port', default=3001, help='Port to run the server on')
-def main(port):
-    app.run(host='0.0.0.0', port=port)
-
 if __name__ == "__main__":
-    main()
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))

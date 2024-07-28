@@ -1,6 +1,8 @@
-Flask==2.3.3
-Flask-Cors==4.0.0
-yt-dlp==2024.07.21
-requests==2.31.0
-Click==8.1.6
+Flask==3.0.3
+Flask-Cors==4.0.1
+yt-dlp==2024.07.25
+requests==2.32.3
+Click==8.1.7
 ffmpeg-python==0.2.0
+gunicorn==20.1.0
+
