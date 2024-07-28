@@ -14,6 +14,7 @@ STREAMS = {
     "3": ("Synthwave Radio", "https://www.youtube.com/watch?v=4xDzrJKXOOY"),
     "4": ("Rap", "https://www.youtube.com/watch?v=0DztVOeomsk"),
     "5": ("Chillhop", "https://www.youtube.com/watch?v=5yx6BWlEVcY"),
+    "6": ("Medieval lofi", "https://www.youtube.com/watch?v=_uMuuHk_KkQ"),
 }
 
 def get_audio_url(youtube_url):
