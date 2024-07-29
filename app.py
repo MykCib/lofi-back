@@ -6,7 +6,7 @@ import click
 import ffmpeg
 
 app = Flask(__name__)
-CORS(app)  # This enables CORS for all routes
+CORS(app)  
 
 STREAMS = {
     "1": ("Lofi Girl", "https://www.youtube.com/watch?v=jfKfPfyJRdk"),
@@ -48,7 +48,7 @@ def get_stream(stream_id):
         audio_url = get_audio_url(youtube_url)
         return jsonify({
             "stream_name": stream_name,
-            "audio_url": f"/proxy_stream/{stream_id}"  # Return a local URL instead
+            "audio_url": f"/proxy_stream/{stream_id}"  
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
