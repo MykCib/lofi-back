@@ -11,10 +11,12 @@ CORS(app)
 STREAMS = {
     "1": ("Lofi Girl", "https://www.youtube.com/watch?v=jfKfPfyJRdk"),
     "2": ("Asian Lofi", "https://www.youtube.com/watch?v=Na0w3Mz46GA"),
-    "3": ("Synthwave Radio", "https://www.youtube.com/watch?v=4xDzrJKXOOY"),
-    "4": ("Rap", "https://www.youtube.com/watch?v=0DztVOeomsk"),
-    "5": ("Chillhop", "https://www.youtube.com/watch?v=5yx6BWlEVcY"),
-    "6": ("Medieval lofi", "https://www.youtube.com/watch?v=_uMuuHk_KkQ"),
+    "3": ("Medieval lofi", "https://www.youtube.com/watch?v=_uMuuHk_KkQ"),
+    "4": ("Synthwave Radio", "https://www.youtube.com/watch?v=4xDzrJKXOOY"),
+    "5": ("Rap", "https://www.youtube.com/watch?v=0DztVOeomsk"),
+    "6": ("Chillhop", "https://www.youtube.com/watch?v=5yx6BWlEVcY"),
+    "7": ("Coffee Shop Radio", "https://www.youtube.com/watch?v=lP26UCnoH9s"),
+    "8": ("Tavern", "https://www.youtube.com/watch?v=vK5VwVyxkbI"),
 }
 
 def get_audio_url(youtube_url):
