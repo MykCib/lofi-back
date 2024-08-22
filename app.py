@@ -11,7 +11,7 @@ CORS(app)
 STREAMS = {
     "1": ("Lofi Girl", "https://www.youtube.com/watch?v=jfKfPfyJRdk"),
     "2": ("Asian Lofi", "https://www.youtube.com/watch?v=Na0w3Mz46GA"),
-    "3": ("Medieval lofi", "https://www.youtube.com/watch?v=_uMuuHk_KkQ"),
+    "3": ("Dark Ambient Radio", "https://www.youtube.com/watch?v=S_MOd40zlYU"),
     "4": ("Synthwave Radio", "https://www.youtube.com/watch?v=4xDzrJKXOOY"),
     "5": ("Rap", "https://www.youtube.com/watch?v=0DztVOeomsk"),
     "6": ("Chillhop", "https://www.youtube.com/watch?v=5yx6BWlEVcY"),
