@@ -31,28 +31,12 @@ def load_streams(channel_url, prefix, remove_last=0):
         logger.error(f"Error loading streams for {prefix}: {e}")
         return {}
 
-def load_hor_videos(channel_url):
-    try:
-        cmd = f"yt-dlp -j --flat-playlist '{channel_url}' | jq -r '[.title, .url] | @tsv'"
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True)
-        videos = []
-        for line in result.stdout.strip().split('\n'):
-            title, url = line.split('\t')
-            videos.append((title, url))
-        return videos
-    except subprocess.CalledProcessError as e:
-        logger.error(f"Error loading HOR videos: {e}")
-        return []
-
 logger.info("Loading streams...")
 STREAMS = {}
 STREAMS.update(load_streams("https://www.youtube.com/@LofiGirl/streams", "LG", remove_last=2))
 STREAMS.update(load_streams("https://www.youtube.com/@ChillhopMusic/streams", "CH"))
 STREAMS.update(load_streams("https://www.youtube.com/@IvyStationRecords/streams", "IS"))
 
-logger.info("Loading HOR videos...")
-HOR_VIDEOS = load_hor_videos("https://www.youtube.com/@hoer.berlin/videos")
-STREAMS["HOR"] = ("HOR 💽", "HOR")
 
 logger.info(f"Total number of streams loaded: {len(STREAMS)}")
 for key, value in STREAMS.items():
@@ -89,14 +73,7 @@ def proxy_stream(stream_id):
         return jsonify({"error": "Invalid stream ID"}), 400
     
     try:
-        if stream_id == "HOR":
-            if not HOR_VIDEOS:
-                return jsonify({"error": "No HOR videos available"}), 500
-            random_video = random.choice(HOR_VIDEOS)
-            youtube_url = random_video[1]
-            logger.info(f"Selected HOR video: {random_video[0]}")
-        else:
-            youtube_url = STREAMS[stream_id][1]
+        youtube_url = STREAMS[stream_id][1]
         
         audio_url = get_audio_url(youtube_url)
         
