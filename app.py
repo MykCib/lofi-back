@@ -52,7 +52,7 @@ STREAMS.update(load_streams("https://www.youtube.com/@IvyStationRecords/streams"
 
 logger.info("Loading HOR videos...")
 HOR_VIDEOS = load_hor_videos("https://www.youtube.com/@hoer.berlin/videos")
-STREAMS["HOR"] = ("HOR (Random Videos)", "HOR")
+STREAMS["HOR"] = ("HOR 💽", "HOR")
 
 logger.info(f"Total number of streams loaded: {len(STREAMS)}")
 for key, value in STREAMS.items():
