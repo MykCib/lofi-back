@@ -39,7 +39,8 @@ STREAMS = {}
 channels = [
     ("https://www.youtube.com/@LofiGirl/streams", "LG", 2),
     ("https://www.youtube.com/@ChillhopMusic/streams", "CH", 0),
-    ("https://www.youtube.com/@IvyStationRecords/streams", "IS", 0)
+    ("https://www.youtube.com/@IvyStationRecords/streams", "IS", 0),
+    ("https://www.youtube.com/@steezyasfvck/streams", "SF", 0)
 ]
 for channel_url, prefix, remove_last in channels:
     channel_streams = load_streams(channel_url, prefix, remove_last)
