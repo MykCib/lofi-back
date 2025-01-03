@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, Response, stream_with_context, request
+from flask import Flask, jsonify, Response, stream_with_context, request, redirect
 from flask_cors import CORS
 import yt_dlp
 import requests
