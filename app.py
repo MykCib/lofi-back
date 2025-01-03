@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, Response, stream_with_context
+from flask import Flask, jsonify, Response, stream_with_context, request
 from flask_cors import CORS
 import yt_dlp
 import requests
@@ -24,8 +24,11 @@ def load_streams(channel_url, prefix, remove_last=0):
         if remove_last > 0:
             lines = lines[:-remove_last]
         for i, line in enumerate(lines, start=1):
-            title, url = line.split('\t')
-            streams[f"{prefix}{i}"] = (title, url)
+            try:
+                title, url = line.split('\t')
+                streams[f"{prefix}{i}"] = (title, url)
+            except ValueError:
+                logger.warning(f"Skipping invalid stream data for {prefix}{i}: {line}")
         return streams
     except subprocess.CalledProcessError as e:
         logger.error(f"Error loading streams for {prefix}: {e}")
@@ -33,10 +36,24 @@ def load_streams(channel_url, prefix, remove_last=0):
 
 logger.info("Loading streams...")
 STREAMS = {}
-STREAMS.update(load_streams("https://www.youtube.com/@LofiGirl/streams", "LG", remove_last=2))
-STREAMS.update(load_streams("https://www.youtube.com/@ChillhopMusic/streams", "CH"))
-STREAMS.update(load_streams("https://www.youtube.com/@IvyStationRecords/streams", "IS"))
+channels = [
+    ("https://www.youtube.com/@LofiGirl/streams", "LG", 2),
+    ("https://www.youtube.com/@ChillhopMusic/streams", "CH", 0),
+    ("https://www.youtube.com/@IvyStationRecords/streams", "IS", 0)
+]
+for channel_url, prefix, remove_last in channels:
+    channel_streams = load_streams(channel_url, prefix, remove_last)
+    if channel_streams:
+        STREAMS.update(channel_streams)
+    else:
+        logger.warning(f"No streams loaded for channel: {channel_url}")
 
+@app.before_request
+def before_request():
+    # Don't redirect if already HTTPS or if running locally
+    if not request.is_secure and not request.headers.get('X-Forwarding-Proto') == 'https':
+        url = request.url.replace('http://', 'https://', 1)
+        return redirect(url, code=301)
 
 logger.info(f"Total number of streams loaded: {len(STREAMS)}")
 for key, value in STREAMS.items():
