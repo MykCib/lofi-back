@@ -49,12 +49,6 @@ for channel_url, prefix, remove_last in channels:
     else:
         logger.warning(f"No streams loaded for channel: {channel_url}")
 
-@app.before_request
-def before_request():
-    # Don't redirect if already HTTPS or if running locally
-    if not request.is_secure and not request.headers.get('X-Forwarding-Proto') == 'https':
-        url = request.url.replace('http://', 'https://', 1)
-        return redirect(url, code=301)
 
 logger.info(f"Total number of streams loaded: {len(STREAMS)}")
 for key, value in STREAMS.items():
@@ -89,12 +83,12 @@ def get_audio_url(youtube_url):
 def proxy_stream(stream_id):
     if stream_id not in STREAMS:
         return jsonify({"error": "Invalid stream ID"}), 400
-    
+
     try:
         youtube_url = STREAMS[stream_id][1]
-        
+
         audio_url = get_audio_url(youtube_url)
-        
+
         def generate():
             try:
                 process = (
@@ -103,10 +97,10 @@ def proxy_stream(stream_id):
                     .output('pipe:', format='mp3', acodec='libmp3lame', ac=2, ar='44100', loglevel='quiet')
                     .run_async(pipe_stdout=True)
                 )
-                
+
                 for chunk in iter(lambda: process.stdout.read(4096), b''):
                     yield chunk
-                
+
                 process.stdout.close()
                 process.wait()
             except Exception as e:
